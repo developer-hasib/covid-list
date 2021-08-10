@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div >
+        <h1 class="text-center py-2  bg-secondary display-3" style="margin: 0px; font-family: Arial black;">Covid List</h1>
+    </div>
+    <table class="shadow-lg p-3 mb-5 bg-body rounded table table-striped container">
+        <tr class="bg-secondery text-center">
+            <th>country</th>
+            <th>cases</th>
+            <th>todayCases</th>
+            <th>deaths</th>
+            <th>recovered</th>
+            <th>active</th>
+            <th>critical</th>
+            <th>casesPerOneMillion</th>
+        </tr >
+
+        <tbody class="text-center"id="myTable">
+
+        </tbody>
+    </table>
+
+
+
+    <footer class="bg-info" ">
+        <p style="margin:0px;" class="text-center py-2">@Copyright Hasibul Islam</p>
+    </footer>
+
+    <script>
+        fetch("https://coronavirus-19-api.herokuapp.com/countries")
+    .then(res => res.json())
+    .then((data) => {
+
+        for (a = 0; a < data.length; a++) {
+            var row = `<tr>
+                            <td style="color:blue;">${data[a]["country"]}</td>
+                            <td>${data[a]["cases"]}</td>
+                            <td class="bg-danger" >${data[a]["todayDeaths"]}</td>
+                            <td style="background:rgb(180, 0, 0)">${data[a]["deaths"]}</td>
+                            <td>${data[a]["recovered"]}</td>
+                            <td>${data[a]["active"]}</td>
+                            <td>${data[a]["critical"]}</td>
+                            <td>${data[a]["casesPerOneMillion"]}</td>
+                      </tr>`
+            // table.innerHTML= table.innerHTML + row
+
+            document.getElementById("myTable").insertAdjacentHTML("beforeend", row);
+        }
+    });
+    </script>
+</body>
+
+</html>
